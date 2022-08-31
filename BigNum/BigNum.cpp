@@ -42,7 +42,56 @@ void add(string &x, string &y)
             tmp = '1' + tmp;
         }
     }
-    
+
+    cout << tmp << endl;
+}
+void dec(string &x, string &y)
+{
+    string tmp = "";
+    int nho = 0;
+    int a = x.size() - 1;
+    if (x < y)
+    {
+        while (a >= 0)
+        {
+            int sum = 10 + y[a] - x[a] - nho;
+            if (sum < 10)
+            {
+                nho = 1;
+            }
+            else
+            {
+                nho = 0;
+                sum = sum - 10;
+            }
+            char c = '0' + sum;
+            tmp = c + tmp;
+            a--;
+        }
+        tmp = '-' + tmp;
+    }
+    else if (x > y)
+    {
+        while (a >= 0)
+        {
+            int sum = 10 + x[a] - y[a] - nho;
+            if (sum < 10)
+            {
+                nho = 1;
+            }
+            else
+            {
+                nho = 0;
+                sum = sum - 10;
+            }
+            char c = '0' + sum;
+            tmp = c + tmp;
+            a--;
+        }
+    }
+    else
+        tmp = '0';
+
     cout << tmp << endl;
 }
 int main()
@@ -52,5 +101,5 @@ int main()
     cin >> x;
     cin >> y;
     pad(x, y);
-    add(x, y);
+    dec(x, y);
 }
