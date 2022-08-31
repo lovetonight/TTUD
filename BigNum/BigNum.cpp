@@ -12,7 +12,7 @@ void pad(string &x, string &y)
             y.insert(0, "0");
         }
     }
-    else if (b < a)
+    else if (a < b)
     {
         for (int i = 0; i < b - a; i++)
         {
@@ -34,6 +34,8 @@ void add(string &x, string &y)
             nho = 1;
             sum = sum - 10;
         }
+        else
+            nho = 0;
         char c = '0' + sum;
         tmp = c + tmp;
         a--;
@@ -101,5 +103,5 @@ int main()
     cin >> x;
     cin >> y;
     pad(x, y);
-    dec(x, y);
+    add(x, y);
 }
