@@ -20,8 +20,9 @@ void pad(string &x, string &y)
         }
     }
 }
-void add(string &x, string &y)
+string add(string &x, string &y)
 {
+    pad(x, y);
     string tmp = "";
     int nho = 0;
     int a = x.size() - 1;
@@ -45,10 +46,11 @@ void add(string &x, string &y)
         }
     }
 
-    cout << tmp << endl;
+    return tmp;
 }
-void dec(string &x, string &y)
+string dec(string &x, string &y)
 {
+    pad(x, y);
     string tmp = "";
     int nho = 0;
     int a = x.size() - 1;
@@ -70,6 +72,7 @@ void dec(string &x, string &y)
             tmp = c + tmp;
             a--;
         }
+
         tmp = '-' + tmp;
     }
     else if (x > y)
@@ -94,7 +97,22 @@ void dec(string &x, string &y)
     else
         tmp = '0';
 
-    cout << tmp << endl;
+    return tmp;
+}
+string nhan(string &x, string &y)
+{
+    string tmp = "0";
+    int a = y.size();
+    for (int i = 0; i < a; i++)
+    {
+
+        int z = y[i] - '0';
+        for (int j = 0; j < z; j++)
+            tmp = add(tmp, x);
+        if (i < a - 1)
+            tmp = tmp + "0";
+    }
+    return tmp;
 }
 int main()
 {
@@ -102,6 +120,5 @@ int main()
     string y;
     cin >> x;
     cin >> y;
-    pad(x, y);
-    add(x, y);
+    cout << nhan(x, y);
 }
