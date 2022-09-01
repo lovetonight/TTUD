@@ -120,5 +120,7 @@ int main()
     string y;
     cin >> x;
     cin >> y;
-    cout << nhan(x, y);
+    cout << "Tong: " << add(x, y) << endl;
+    cout << "Hieu: " << dec(x, y) << endl;
+    cout << "Tich: " << nhan(x, y) << endl;
 }
