@@ -114,6 +114,10 @@ string nhan(string &x, string &y)
     }
     return tmp;
 }
+string chia(string &x, string &y)
+{
+    
+}
 int main()
 {
     string x;
