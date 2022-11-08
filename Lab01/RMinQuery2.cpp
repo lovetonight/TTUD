@@ -1,6 +1,7 @@
 // Dao Trong Hoan
 // 20204974
 // Range Minimum Query
+// O(nlog(n))
 #include <bits/stdc++.h>
 using namespace std;
 
