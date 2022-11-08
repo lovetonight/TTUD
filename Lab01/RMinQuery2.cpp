@@ -3,53 +3,49 @@
 // Range Minimum Query
 #include <bits/stdc++.h>
 using namespace std;
-int tree[100000];
-int a[100000];
-void makeNode(int L, int R, int index)
+
+int check[30][1000000]; // Luu chi so cua phan tu chua gia tri nho nhat
+int arr[1000000];
+int n;
+
+void processing()
 {
-    int mid;
-    if (L == R)
-    {
-        tree[index] = a[L];
-        return;
-    }
-    mid = (L + R) / 2;
-    makeNode(L, mid, 2 * index);
-    makeNode(mid + 1, R, 2 * index + 1);
-    tree[index] = min(tree[2 * index], tree[2 * index + 1]);
+    for (int i = 0; i < n; i++)
+        check[0][i] = i;
+    for (int i = 0; i < n; i++)
+        for (int j = 1; (1 << j) < n; j++)
+            check[j][i] = -1;
+    for (int j = 1; (1 << j) < n; j++)
+        for (int i = 0; i < n; i++)
+        {
+            if (arr[check[j - 1][i]] <= arr[check[j - 1][i + (1 << (j - 1))]])
+                check[j][i] = check[j - 1][i];
+            else
+                check[j][i] = check[j - 1][i + (1 << (j - 1))];
+        }
 }
-int findMin(int u, int v, int L, int R, int index)
+int rmp(int i, int j)
 {
-    int mid;
-    if (u <= L && v <= R)
-        return tree[index];
-    mid = (L + R) / 2;
-    if (v <= mid)
-        return (findMin(u, v, L, mid, index * 2));
-    if (u > mid)
-        return (findMin(u, v, mid + 1, R, index * 2 + 1));
-    return (min(findMin(u, v, L, mid, index * 2), findMin(u, v, mid + 1, R, index * 2 + 1)));
+    int k = log2(j - i + 1);
+    int b = 1 << k;
+    return min(arr[check[k][i]], arr[check[k][j - b + 1]]);
 }
 int main()
 {
-    int n, m, L, R, x, sum = 0;
     cin >> n;
-    for (int i = 1; i <= n; i++)
+    for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
+        cin >> arr[i];
     }
-
-    makeNode(1, n, 1);
-    // cout << findMin(2, 10, 1, n, 1);
-    for (int i = 1; i <= 2*n+1; i++)
-    {
-        cout << tree[i]<<" ";
-    }
-    /*cin >> m;
+    processing();
+    int m, L, R, sum = 0;
+    cin >> m;
     for (int i = 0; i < m; i++)
     {
-        cin >> L >> R;
-        cout << findMin(L, R, 0, n - 1, 0) << "\n";
-    }*/
+        cin >> L;
+        cin >> R;
+        sum = sum + rmp(L, R);
+    }
+    cout << sum;
     return 0;
 }
