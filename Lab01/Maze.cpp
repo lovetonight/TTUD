@@ -7,77 +7,52 @@
 using namespace std;
 
 const int maxN = 999;
+const int oo = 1e9 + 1;
+typedef pair<int, int> ii;
 
-int r, c;
-char a[maxN][maxN];
-int d[maxN][maxN];
-bool visit[maxN][maxN];
+queue<ii> qe;
+int m, n;          // Kích thước ma trận
+int r, c;          // Tọa độ ban đầu
+int a[maxN][maxN]; // Đánh dấu ô đó đã được xét chưa
+int d[maxN][maxN]; // Chứa khoảng cách ngắn nhất từ vị trí bắt đầu
 int dX[] = {0, 0, 1, -1};
 int dY[] = {1, -1, 0, 0};
 
-void bfs(int sx, int sy)
+int solve()
 {
-    for (int i = 1; i <= r; ++i)
+    qe.push(ii(r, c));  // Thêm vị trí ban đầu vào hàng đợi
+    d[r][c] = 0;        // Khoảng cách bằng 0
+    a[r][c] = 1;        // Đánh dấu đã xét vị trí ban đầu
+    while (!qe.empty()) // Khi hàng đợi còn phần tử thì còn xét
     {
-        fill_n(d[i], c + 1, 0);
-        fill_n(visit[i], c + 1, false);
-    }
-
-    queue<pair<int, int>> q;
-    q.push({sx, sy});
-    visit[sx][sy] = true;
-    while (!q.empty())
-    {
-        int x = q.front().first;
-        int y = q.front().second;
-        q.pop();
-
-        // Nếu gặp được ô B thì kết thúc thủ tục BFS
-        if (a[x][y] == 'B')
-            return;
-
-        for (int i = 0; i < 4; ++i)
+        ii u = qe.front();          // Lấy ra phần tử đầu
+        qe.pop();                   // Xóa phần tử đầu
+        for (int i = 0; i < 4; i++) // Xét các trường hợp lần lượt phải, trái, xuống, lên
         {
-            int u = x + moveX[i];
-            int v = y + moveY[i];
-
-            if (u > r || u < 1)
-                continue;
-            if (v > c || v < 1)
-                continue;
-            if (a[u][v] == '*')
-                continue;
-
-            if (!visit[u][v])
+            int x = dX[i] + u.first;
+            int y = dY[i] + u.second;
+            if (x < 1 || x > m || y < 1 || y > n) // Nếu chạm tường thì thoát khỏi vòng lặp
             {
-                d[u][v] = d[x][y] + 1;
-                visit[u][v] = true;
-                q.push({u, v});
+                return d[u.first][u.second] + 1;
+            }
+
+            if (a[x][y] != 1) // Kiểm tra nếu ô đó chưa xét
+            {
+                d[x][y] = d[u.first][u.second] + 1; // Tăng khoảng cách thêm 1
+                qe.push(ii(x, y));                  // Thêm vào hàng đợi
+                a[x][y] = 1;                        // Đánh dấu sẽ xét ô đó
             }
         }
     }
+    return -1;
 }
 
 int main()
 {
-    int sx, sy, tx, ty;
-    cin >> r >> c;
-    for (int i = 1; i <= r; ++i)
-        for (int j = 1; j <= c; ++j)
-        {
+    cin >> m >> n >> r >> c;
+    for (int i = 1; i <= m; i++)
+        for (int j = 1; j <= n; j++)
             cin >> a[i][j];
-            if (a[i][j] == 'C')
-            {
-                sx = i;
-                sy = j;
-            }
-            if (a[i][j] == 'B')
-            {
-                tx = i;
-                ty = j;
-            }
-        }
-
-    bfs(sx, sy);
-    cout << d[tx][ty];
+    cout << solve();
+    return 0;
 }
