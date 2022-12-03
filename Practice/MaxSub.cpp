@@ -5,7 +5,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define N 1000001
-int n;
+int n, ans;
 int a[N];
 int S[N];
 
@@ -18,38 +18,26 @@ void input()
     }
 }
 
-int F(int i)
+void solveBottomUp()
 {
-    if (i == 1)
+    S[0] = a[0];
+    ans = a[0];
+    for (int i = 1; i < n; i++)
     {
-        S[1] = a[1];
-        return S[1];
-    }
-    if (S[i] == INF)
-    {
-        int b = F(i - 1);
-        if (b > 0)
-            S[i] = b + a[i];
+        if (S[i - 1] > 0)
+        {
+            S[i] = S[i - 1] + a[i];
+        }
         else
             S[i] = a[i];
+        ans = max(ans, S[i]);
     }
-    return S[i];
-}
-void solveTopDown()
-{
-    for (int i = 1; i <= n; i++)
-        S[i] = INF;
-    int res = INF;
-    for (int i = 1; i <= n; i++)
-    {
-        int tmp = F(i);
-        res = max(res, tmp);
-    }
-    cout << res;
+    cout << ans;
 }
 int main()
 {
     input();
-    solveTopDown();
+    // solveTopDown();
+    solveBottomUp();
     return 0;
 }
