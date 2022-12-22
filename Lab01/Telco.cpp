@@ -42,8 +42,6 @@ int main()
             ++incorrectPhone;
         numberCalls[fnum]++;
         timeCall[fnum] += countTime(ftime, etime);
-
-
     } while (type != "#");
 
     do
