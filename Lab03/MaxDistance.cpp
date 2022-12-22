@@ -4,86 +4,57 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-#define N 100000
+#define N 100006
 long arr[N];
-int n, c, m;
+int t, n, c, m;
 
-void MergeSort(long arr[], int l, int m, int r)
+bool check(int distance)
 {
-    int i = l;
-    int j = m + 1;
-    long b[N];
-    for (int k = l; k <= r; k++)
+    int count = 1;
+    int i = 1;
+    int last = 2;
+    while (i < n)
     {
-        if (i > m)
-        {
-            b[k] = arr[j];
-            j++;
-        }
+        while (last <= n && arr[last] - arr[i] < distance)
+            ++last;
+        if (last <= n)
+            count++;
+        if (count >= c)
+            return true;
+        i = last;
+        last++;
+    }
+    return false;
+}
+
+int MaxDistance()
+{
+    int l = 0;
+    int r = arr[n] - arr[1];
+    while (l <= r)
+    {
+        int mid = (l + r) / 2;
+        if (check(mid))
+            l = mid + 1;
         else
-        {
-            if (j > r)
-            {
-                b[k] = arr[i];
-                i++;
-            }
-            else
-            {
-                if (arr[i] < arr[j])
-                {
-                    b[k] = arr[i];
-                    i++;
-                }
-                else
-                {
-                    b[k] = arr[j];
-                    j++;
-                }
-            }
-        }
+            r = mid - 1;
     }
-    for (int k = l; k <= r; k++)
-        arr[k] = b[k];
+    return r;
 }
-
-void Merge(long arr[], int l, int r)
-{
-    if (l < r)
-    {
-        int m = (l + r) / 2;
-        Merge(arr, l, m);
-        Merge(arr, m + 1, r);
-        MergeSort(arr, l, m, r);
-    }
-}
-
-void search(long arr[], int l, int r)
-{
-    return arr[(l + r) / 2];
-}
-void process(long arr[], int n)
-{
-    Merge(arr, 0, n - 1);
-
-    
-}
-
-void input()
-{
-    cin >> m;
-    for (int i = 1; i <= m; i++)
-    {
-        cin >> n >> c;
-        for (int j = 0; j < n; j++)
-        {
-            scanf("%d", &arr[j]);
-        }
-        process(arr, n);
-    }
-}
-
 int main()
 {
-    input();
-    return 0;
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    scanf("%d", &t);
+    while (t--)
+    {
+        scanf("%d%d", &n, &c);
+        for (int i = 1; i <= n; i++)
+        {
+            scanf("%d", &arr[i]);
+        }
+        sort(arr + 1, arr + n);
+        cout << MaxDistance() << endl;
+    }
 }
