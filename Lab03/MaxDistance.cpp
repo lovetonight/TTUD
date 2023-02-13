@@ -22,7 +22,7 @@ bool check(int distance)
         if (count >= c)
             return true;
         i = last;
-        last++;
+        last++; // Last lớn hơn i 1 đơn vị
     }
     return false;
 }

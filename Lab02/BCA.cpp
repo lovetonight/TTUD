@@ -58,16 +58,16 @@ void Try(int k)
 {
     for (int i = 0; i < T[k].size(); i++)
     {
-        int t = T[k][i];
-        if (check(t, k))
+        int t = T[k][i]; // Gán giáo viên thứ t dạy môn thứ k
+        if (check(t, k)) // Kiểm tra giáo viên có bị xung đột môn khôngg
         {
-            x[k] = t;
-            load[t]++;
-            if (k == n)
-                solution();
-            else if (load[t] < res)
-                Try(k + 1);
-            load[t]--;
+            x[k] = t; // Nếu không thì gán giáo viên thứ t dạy môn thứ k
+            load[t]++;  // Tăng tải của giáo viên thứ t
+            if (k == n) // Nếu đã gán giáo viên cho tất cả các môn
+                solution(); // Kiểm tra xem có phải là kết quả tốt nhất không
+            else if (load[t] < res) // Nếu tải của giáo viên thứ t chưa đạt tối đa
+                Try(k + 1);     // Tiếp tục gán giáo viên cho các môn còn lại
+            load[t]--;      // Trả lại tải của giáo viên thứ t
         }
     }
 }

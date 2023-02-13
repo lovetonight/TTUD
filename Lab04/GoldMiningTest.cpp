@@ -48,6 +48,7 @@ int goldMining(int M[], int n, int L1, int L2)
 	
 	return max;
 }
+
  
 int main()
 {

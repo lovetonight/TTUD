@@ -42,7 +42,6 @@ int main()
             {
                 Sc[i] = arr[i];
             }
-            // if (Sc[i - 1] > 0)
             Sl[i] = Sl[i - 1] + arr[i];
             ans = max(ans, Sc[i]);
         }
@@ -54,10 +53,8 @@ int main()
             }
             else
             {
-                Sl[i] = arr[i];
                 Sc[i] = 0;
             }
-            // if (Sc[i - 1] > 0)
             Sl[i] = Sc[i - 1] + arr[i];
             ans = max(ans, Sc[i]);
         }
