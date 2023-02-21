@@ -73,7 +73,17 @@ int main()
     //     cout << MaxDistance() << endl;
     // }
 
-    proc2();
+    //proc2();
+    string s = "pwwkew";
+    int arr[200];
+         for(int i =0;i<200;i++)
+            arr[i]=0;
+        for(int i=0;i<s.length();i++)
+            arr[(int)s[i]]++;
+        int count;
+        for(int i =0;i<200;i++)
+            if(arr[i]) count++;
+        cout<< count;
 
     return 0;
 }

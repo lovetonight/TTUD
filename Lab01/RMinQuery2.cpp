@@ -11,7 +11,6 @@ int n;
 
 void processing()
 {
-
     // check[j][i] chỉ số của phần tử nhỏ nhất trong đoạn [i, i + 2^j - 1]
     for (int i = 0; i < n; i++)
         check[0][i] = i;
@@ -31,7 +30,7 @@ int rmp(int i, int j)
 {
     int k = log2(j - i + 1); // Khoảng cách giữa 2 điểm cần kiểm tra
     int b = 1 << k;   // 2^k     
-    return min(arr[check[k][i]], arr[check[k][j - b + 1]]); // Trả về giá trị nhỏ nhất trong khoảng
+    return (arr[check[k][i]], arr[check[k][j - b + 1]]); // Trả về giá trị nhỏ nhất trong khoảng
 }
 int main()
 {
