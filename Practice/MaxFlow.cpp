@@ -16,7 +16,7 @@ vector<int> myvt[N];
 // memset
 void input()
 {
-    //fstream fsi("input.txt", ios::in);
+    // fstream fsi("input.txt", ios::in);
     cin >> n >> m >> s >> t;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)

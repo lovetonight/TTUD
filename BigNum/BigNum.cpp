@@ -116,7 +116,8 @@ string nhan(string &x, string &y)
 }
 string chia(string &x, string &y)
 {
-    
+    // string tmp = "0";
+    return "0";
 }
 int main()
 {
@@ -124,7 +125,9 @@ int main()
     string y;
     cin >> x;
     cin >> y;
-    cout << "Tong: " << add(x, y) << endl;
-    cout << "Hieu: " << dec(x, y) << endl;
-    cout << "Tich: " << nhan(x, y) << endl;
+    // cout << "Tong: " << add(x, y) << endl;
+    // cout << "Hieu: " << dec(x, y) << endl;
+    // cout << "Tich: " << nhan(x, y) << endl;
+    cout << nhan(x, y);
+    return 0;
 }

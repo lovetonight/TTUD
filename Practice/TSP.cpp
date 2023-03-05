@@ -40,20 +40,15 @@ int TSP(int i, unsigned int S)
     if (S == 0)
     {
         F[i][S] = arr[i][0];
-        return F[i][S];
     }
     else if (F[i][S] < 0)
     {
         F[i][S] = oo;
-        for (int j = 0; j <= n - 1; j++)
+        for (int j = 1; j < n; j++)
             if (checkContains(S, j))
             {
                 unsigned int Sj = removeElement(S, j);
-                int Tj = TSP(j, Sj) + arr[i][j];
-                if (F[i][S] > Tj)
-                {
-                    F[i][S] = Tj;
-                }
+                F[i][S] = min(F[i][S], TSP(j, Sj) + arr[i][j]);
             }
     }
     return F[i][S];
@@ -65,9 +60,7 @@ int main()
     for (int i = 0; i < n; i++)
         for (int j = 0; j <= (1 << n) - 1; j++)
             F[i][j] = -2;
-    if (TSP(0, x) == 143)
-        cout << 144;
-    else
-        cout << TSP(0, x);
+    x = removeElement(x, 0);
+    cout << TSP(0, x);
     return 0;
 }
